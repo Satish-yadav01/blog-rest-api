@@ -40,7 +40,8 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public String login(LoginDto loginDto) {
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+        Authentication authentication = authenticationManager
+                .authenticate(new UsernamePasswordAuthenticationToken(
                 loginDto.getUsernameOrEmail(), loginDto.getPassword()
         ));
 
@@ -53,12 +54,14 @@ public class AuthServiceImpl implements AuthService {
     public String register(RegisterDto registerDto) {
         //add check for username exist in database
         if(userRepository.existsByUsername(registerDto.getUsername())){
-            throw new BlogApiException(HttpStatus.BAD_REQUEST,"username is already exists!");
+            throw new BlogApiException(HttpStatus.
+                            ,"username is already exists!");
 
         }
         //check for email exists in database
         if(userRepository.existsByEmail(registerDto.getEmail())){
-            throw new BlogApiException(HttpStatus.BAD_REQUEST,"email already exist!");
+            throw new BlogApiException(HttpStatus.BAD_REQUEST
+                            ,"email already exist!");
         }
 
         User user = new User();
@@ -66,7 +69,7 @@ public class AuthServiceImpl implements AuthService {
         user.setUsername(registerDto.getUsername());
         user.setEmail(registerDto.getEmail());
         user.setPassword(passwordEncoder
-                .encode(registerDto.getPassword()));
+                        .encode(registerDto.getPassword()));
         Set<Role> roles = new HashSet<>();
         Role userRole = roleRepository.findByName("ROLE_USER").get();
         roles.add(userRole);
