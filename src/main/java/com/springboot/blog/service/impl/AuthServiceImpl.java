@@ -54,7 +54,7 @@ public class AuthServiceImpl implements AuthService {
     public String register(RegisterDto registerDto) {
         //add check for username exist in database
         if(userRepository.existsByUsername(registerDto.getUsername())){
-            throw new BlogApiException(HttpStatus.
+            throw new BlogApiException(HttpStatus.NOT_FOUND
                             ,"username is already exists!");
 
         }
